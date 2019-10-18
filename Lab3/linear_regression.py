@@ -30,17 +30,17 @@ tau=1*np.eye(2)
 w_0=np.zeros((2,1))
 
 #Create prior weights
-w = np.array([-1.3,0.3]).T
+#w = np.array([-1.3,0.3]).T
 
 #Generate data X
-X_c=np.linspace(-1,1,10)
-X=[]
-for i in range(len(X_c)):
-    X.append([X_c[i], 1])
+#X_c=np.linspace(-1,1,10)
+#X=[]
+#for i in range(len(X_c)):
+#    X.append([X_c[i], 1])
 
 #Generate data Y
-computeY = lambda x: w.T*x+np.random.normal(0,0.3)
-Y = np.array([computeY(xi) for xi in X])
+#computeY = lambda x: w.T*x+np.random.normal(0,0.3)
+#Y = np.array([computeY(xi) for xi in X])
 
 #Create fig
 fig=plt.figure()
