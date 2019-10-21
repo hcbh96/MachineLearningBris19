@@ -29,26 +29,44 @@ def plot_distribution(ax,mu,Sigma):
 tau=1*np.eye(2)
 w_0=np.zeros((2,1))
 
-#Create prior weights
-#w = np.array([-1.3,0.3]).T
-
-#Generate data X
-#X_c=np.linspace(-1,1,10)
-#X=[]
-#for i in range(len(X_c)):
-#    X.append([X_c[i], 1])
-
-#Generate data Y
-#computeY = lambda x: w.T*x+np.random.normal(0,0.3)
-#Y = np.array([computeY(xi) for xi in X])
-
 #Create fig
 fig=plt.figure()
 ax=fig.add_subplot(111)
 
 #visualise distribution over w
 plot_distribution(ax,w_0,tau)
+
+
+#create fig 2
+ax2=fig.add_subplot(222)
+
+#Generate data X
+X_r=np.linspace(-1,1,100)
+convertToPoint = lambda x: [x, 1]
+X=np.array([convertToPoint(xi) for xi in X_r])
+
+#Create prior weights
+w = np.array([-1.3,0.5]).T
+beta=1/0.3
+
+#Generate data Y
+computeY = lambda x: w.T*x+np.random.normal(0,0.3)
+Y = np.array([computeY(xi) for xi in X])
+
+index = np.random.permutation(X.shape[0])
+for i in range(0, index.shape[0]):
+    #compute the posterior
+    X_i = X[index,:]
+    Y_i = Y[index]
+
+    #compute posterior
+    mu_1=(tau**(-1)+beta*X_i.T.dot(X_i))**(-1)*(tau.T.dot(w)+beta*X_i.T.dot(X_i))
+    sigma_1=tau**(-1)+beta*X_i.T.dot(X_i)
+    #visualise the posterior
+    print(sigma_1)
+    plot_distribution(ax2, mu_1, sigma_1)
+    #visualise samples from posterior with data
+    #print out the posterior mean
+
 plt.show()
-
-
 
